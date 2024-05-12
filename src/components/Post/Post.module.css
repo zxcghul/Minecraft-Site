@@ -1,0 +1,39 @@
+.block {
+    height: auto;
+    margin-top: 1rem;
+    padding: .2rem;
+}
+
+.title {
+    font-size: 1.3rem;
+    color: #000000;
+}
+
+.description {
+    font-size: 1rem;
+    margin-top: .4rem;
+    color: #393939;
+}
+
+.content {
+    /* display: inline-block; */
+
+    
+    font-size: 1rem;
+    color: #000000;
+}
+
+.like, .comment {
+    width: 3rem;
+    margin-top: 1.1rem;
+    color: #000000;
+    font-size: 1.1rem;
+    transition: all .15s ease;
+    cursor: pointer;
+}
+.like:hover, .comment:hover {
+    color: #397580;
+}
+.like:active, .comment:active {
+    font-size: 1.05rem;
+}
