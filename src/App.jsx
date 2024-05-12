@@ -5,6 +5,7 @@ import { Main } from "./components/Main/Main";
 import { Info } from "./components/Info/Info";
 import { Routes, Route, Link } from "react-router-dom";
 import { FetchMine } from "./api";
+import { useEffect, useState } from "react";
 const { Header, Footer, Sider } = Layout;
 const headerStyle = {
   position: "sticky",
@@ -34,10 +35,24 @@ const layoutStyle = {
   width: "100%",
 };
 
-const result = await FetchMine("https://api.mcsrvstat.us/2/hype.alphacraft.ru");
 
+// const result = await FetchMine("https://api.mcsrvstat.us/2/hype.alphacraft.ru");
 
 export default function App() {
+  const [WidgetInfo, setWidgetInfo] = useState({});
+  const [Loading, setLoading] = useState(false);
+
+  async function FetchInfo() {
+    setLoading(true)
+    const result = await FetchMine("https://api.mcsrvstat.us/2/hype.alphacraft.ru");
+    setWidgetInfo(result)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    FetchInfo()
+  }, [])
+  
   return (
     <Layout style={layoutStyle}>
       <Header style={headerStyle}>
@@ -50,10 +65,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/info" element={<Info result={result} />} />
+          <Route path="/info" element={<Info result={WidgetInfo} />} />
         </Routes>
         <Sider width="20%" style={siderStyle}>
-          <WidgetMinecraft result={result}></WidgetMinecraft>
+          <WidgetMinecraft result={WidgetInfo} status={Loading}></WidgetMinecraft>
         </Sider>
       </Layout>
       <Footer style={footerStyle}>FAQ</Footer>
